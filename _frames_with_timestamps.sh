@@ -13,7 +13,7 @@ for vf in "$@"; do
     filename=$(echo $vf | cut -d"." -f1)
 
     mkdir $filename                                                # Make a directory for the frames (same as the video file prefixed with ""
-    ffmpeg -i $vf -r 10 -f image2 $filename/frame-%05d.png         # Convert the video file to frames using ffmpeg, -r = 30 fps
+    ffmpeg -i $vf -filter:v scale=-1:820 -r 30 -f image2 $filename/frame-%05d.png         # Convert the video file to frames using ffmpeg, -r = 30 fps
     FRAMES=$(ls -1 $filename | wc -l)                              # Get the total number of frames produced by the video (used to extrapolate the timestamp of the frame in a few lines)
 
     # Loop through the frames, generate a timestamp in milliseconds, and rename the files
